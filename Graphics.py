@@ -1,9 +1,11 @@
 from tkinter import *
+from tkinter import ttk
+import tkinter.font
 
 class Window():
     def __init__(self, width, height):
         self.__root = Tk()
-        self.__root.title("Maze Solver")
+        self.__root.title("Sudoku")
         self.__canvas = Canvas(self.__root, bg="white", height=height, width=width)
         self.__canvas.pack(fill="both", expand=1)
         self.__running = False
@@ -24,6 +26,12 @@ class Window():
 
     def draw_line(self, line, color="black", width=2):
         line.draw(self.__canvas, color, width)
+
+    def create_entry(self, x1, x2, y1, y2):
+        _font = tkinter.font.Font(size=int((x2-x1)/1.5))
+        entry = ttk.Entry(self.__canvas, justify=CENTER, font=_font, foreground="blue", width=1, textvariable=StringVar())
+        entry.place(height=x2-x1, width=y2-y1, x=x1, y=y1)
+        return entry
 
 class Point():
     def __init__(self, x, y):

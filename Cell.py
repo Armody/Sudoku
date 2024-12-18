@@ -12,6 +12,8 @@ class Cell():
         self._y1 = None
         self._y2 = None
         self._win = win
+        
+        #self._entry = ttk.Entry(win.__root, cursor="icon", width=1)
 
     def draw(self, x1, y1, x2, y2):
         if self._win is None:
@@ -22,6 +24,8 @@ class Cell():
         self._x2 = x2
         self._y2 = y2
         border_width = 3
+
+        self._entry = self._win.create_entry(x1, x2, y1, y2)
         
         left_wall = Line(Point(self._x1, self._y1), Point(self._x1, self._y2))
         if self.left_border:
