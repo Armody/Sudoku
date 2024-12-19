@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 import tkinter.font
+import re
 
 class Window():
     def __init__(self, width, height):
@@ -27,9 +28,19 @@ class Window():
     def draw_line(self, line, color="black", width=2):
         line.draw(self.__canvas, color, width)
 
+    def check_num(self, newval):
+        return re.match('^[0-9]*$', newval) is not None and len(newval) <= 1
+
     def create_entry(self, x1, x2, y1, y2):
         _font = tkinter.font.Font(size=int((x2-x1)/1.5))
-        entry = ttk.Entry(self.__canvas, justify=CENTER, font=_font, foreground="blue", width=1, textvariable=StringVar())
+        entry = ttk.Entry(self.__canvas, 
+                          justify=CENTER, 
+                          font=_font, 
+                          foreground="blue", 
+                          width=1, 
+                          textvariable=StringVar(), 
+                          validate="key", 
+                          validatecommand=(self.__canvas.register(self.check_num), "%P"))
         entry.place(height=x2-x1, width=y2-y1, x=x1, y=y1)
         return entry
 
